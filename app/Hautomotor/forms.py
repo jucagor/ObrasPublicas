@@ -2,6 +2,7 @@ from flask import request
 from datetime import date
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, DateField, FileField, IntegerField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import ValidationError, DataRequired, Length, Optional
 from flask_babel import _, lazy_gettext as _l
 from app.models import User
@@ -29,11 +30,11 @@ class CrearHVAForm(FlaskForm):
     tipo_caja = StringField('Tipo de Caja')
     capacidad = StringField('Capacidad')
     #Archivos Adjuntos
-    tarjeta_propiedad = FileField('Tarjeta Propiedad', validators=[Optional()])
-    soat = FileField('Soat', validators=[Optional()])
-    tecnomecanica = FileField('Revision Tecnomecanica', validators=[Optional()])
-    foto1 = FileField('Foto Frontal', validators=[Optional()])
-    foto2 =  FileField('Foto Lateral', validators=[Optional()])
+    tarjeta_propiedad = FileField('Tarjeta Propiedad', validators=[Optional(),FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'pdf', 'JPG', 'JPEG', 'PNG', 'GIF', 'PDF'], 'Solo imagenes o PDF')])
+    soat = FileField('Soat', validators=[Optional(),FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'pdf', 'JPG', 'JPEG', 'PNG', 'GIF', 'PDF'], 'Solo imagenes o PDF')])
+    tecnomecanica = FileField('Revision Tecnomecanica', validators=[Optional(),FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'pdf', 'JPG', 'JPEG', 'PNG', 'GIF', 'PDF'], 'Solo imagenes o PDF')])
+    foto1 = FileField('Foto Frontal', validators=[FileRequired(),FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF'], 'Por lo menos una Foto es Obligatoria')])
+    foto2 =  FileField('Foto Lateral', validators=[Optional(),FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF'], 'Solo imagenes o PDF')])
 
     submit = SubmitField('Guardar')
 

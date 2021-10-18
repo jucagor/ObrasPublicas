@@ -1,3 +1,7 @@
 venv/
 *.db
 *.pyc
+*.jpg
+*.jpeg
+*.png
+*.pdf

@@ -2,20 +2,20 @@
     <tr>
         <td width="70px">
             <a href="">
-                <h2> {{ HVO.descripcion }} </h2> 
+                <img width="300px" src="{{ url_for('static', filename=HVA.filename_foto1)  }}" />
             </a>
         </td>
         <td>
             <span class="user_popup">
                 <a href="">
-                    <b>Fecha ultima actualizacion :</b> {{ HVO.fecha_ultima_actualizacion.date() }}
+                    <b>Fecha ultima actualizacion :</b> {{ HVA.fecha_ultima_actualizacion.date() }}
                 </a>
             </span>
             <br>
-            <span id="{{ HVO.estado }}">{{ HVO.estado }}</span>
+            <span id="{{ HVA.estado }}">{{ HVA.placa }}</span>
             <br><br>
             <span id="">
-               <b>Direccion de la obra: </b> {{ HVO.direccion }}
+               <b>Seccion </b> {{ HVA.seccion }}
             </span>
         </td>
     </tr>

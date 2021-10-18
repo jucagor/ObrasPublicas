@@ -9,6 +9,7 @@ class Config(object):
     ENV = 'development'
     UPLOAD_PATH_PQRS = os.path.join(basedir, 'Files/PQRS')
     UPLOAD_PATH_HVO = os.path.join(basedir, 'Files/HVO')
+    MAX_CONTENT_LENGTH = 16 * 1000 * 1000
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
