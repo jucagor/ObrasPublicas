@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px" class="col-xs-3">
+            <a href="">
+                <h3> {{ pqr.id }} </h3> 
+            </a>
+        </td>
+        <td>
+            <span class="user_popup">
+                <a href="">
+                    {{ pqr.fecha_recibido.date() }}
+                </a>
+            </span>
+            <br>
+            <span id="{{ pqr.id }}">{{ pqr.descripcion }}</span>
+            <br><br>
+            <span id="usuario{{ pqr.user_id }}">
+               <b>PQR ingresads por: </b> {{ pqr.user_id }}
+            </span>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="">
+                <h2> {{ HVO.descripcion }} </h2> 
+            </a>
+        </td>
+        <td>
+            <span class="user_popup">
+                <a href="">
+                    <b>Fecha ultima actualizacion :</b> {{ HVO.fecha_ultima_actualizacion.date() }}
+                </a>
+            </span>
+            <br>
+            <span id="{{ HVO.estado }}">{{ HVO.estado }}</span>
+            <br><br>
+            <span id="">
+               <b>Direccion de la obra: </b> {{ HVO.direccion }}
+            </span>
+        </td>
+    </tr>
+</table>

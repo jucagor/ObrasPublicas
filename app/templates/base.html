@@ -1,0 +1,109 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - Microblog{% else %}{{ ('Welcome to Microblog') }}{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">Obras Publicas Dqdas</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li role="presentation" class="active"><a href="{{ url_for('main.index') }}">{{ ('Home') }}</a></li>
+                    {% if current_user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            PQRS<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('PQRS.crear_pqr') }}">Crear PQR</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('PQRS.visualizar_pqr') }}">Visualizar PQR</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Gestionar mis PQRS</a></li>
+                        </ul>
+                    </li>
+                    <!-- Espacio para menu Hoja de Vida Obras -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Hojas de Vida Obras<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('HVObra.crear_HVO') }}">Crear</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('HVObra.visualizar_HVO') }}">Visualizar</a></li>
+                        </ul>
+                    </li>
+                    <!-- Espacio para menu Inventario Vial -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Inventario Vial<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('HVObra.crear_HVO') }}">Crear</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('HVObra.visualizar_HVO') }}">Visualizar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Espacio para menu Hojas de vida parque automotor -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Parque Automtor<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('Hautomotor.crear_HVA') }}">Crear HV</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('Hautomotor.visualizar_HVA') }}">Visualizar HV</a></li>
+                        </ul>
+                    </li>
+
+                    {% endif %}
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">{{ ('Login') }}</a></li>
+                    {% else %}
+                   <!-- {#
+                    <li>
+                         <a href="{{ url_for('main.messages') }}">{{ ('Messages') }} 
+                            {% set new_messages = current_user.new_messages() %}
+                            <span id="message_count" class="badge"
+                                  style="visibility: {% if new_messages %}visible
+                                                     {% else %}hidden{% endif %};">
+                                {{ new_messages }}
+                            </span>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">{{ ('Profile') }}</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">{{ ('Logout') }}</a></li>
+                    #} -->
+                    <li><a href="{{ url_for('auth.logout') }}">{{ ('Logout') }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {# application content needs to be provided in the app_content block #}
+    {% block app_content %}{% endblock %}
+</div>
+{% endblock %}

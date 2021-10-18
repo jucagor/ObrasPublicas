@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<h1>Visualizar Hojas de vida de las obras</h1>
+
+{% for HVO in hojas_vida %}
+{% include 'HVO/_HVO.html' %}
+{% endfor %}
+
+{% endblock %}
