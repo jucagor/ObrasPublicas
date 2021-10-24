@@ -8,11 +8,17 @@
         <td>
             <span class="user_popup">
                 <a href="">
-                    <b>Fecha ultima actualizacion :</b> {{ HVA.fecha_ultima_actualizacion.date() }}
+                    <h1>
+                    <span id="{{ HVA.estado }}">
+                        <a href="{{ url_for('Hautomotor.detalles_HVA', value=HVA.id) }}">
+                             {{ HVA.placa }}
+                        </a>
+                    </span>
+                </h1>
                 </a>
             </span>
             <br>
-            <span id="{{ HVA.estado }}">{{ HVA.placa }}</span>
+            <b>Fecha ultima actualizacion :</b> {{ HVA.fecha_ultima_actualizacion.date() }}
             <br><br>
             <span id="">
                <b>Seccion </b> {{ HVA.seccion }}

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, send_from_directory
 from flask_login import current_user, login_required
 from app import db
 import os
@@ -26,6 +26,33 @@ def allowed_file(filename):
 
 def crear_HVA():
     form = CrearHVAForm()
+    id_automotor = request.args.get('id',None)
+    print(id_automotor)
+    print(id_automotor is None)
+    if id_automotor is not None:
+        #Consulto el vehiculo en la base de datos
+        automotor=HojaAutomotor.query.filter_by(id=id_automotor).first()
+        #Lleno el formulario con los datos del vehiculo
+        form.placa.data=automotor.placa
+        form.descripcion.data=automotor.descripcion
+        form.propietario.data=automotor.propietario
+        form.identificacion.data=automotor.identificacion_interna
+        form.tarjeta.data=automotor.tarjeta_propiedad
+        form.fecha_expedicion.data=automotor.fecha_expedicion
+        form.avaluo.data=automotor.avaluo
+        form.seccion.data=automotor.seccion
+        form.clase_vehiculo.data=automotor.clase_vehiculo
+        form.marca.data=automotor.marca
+        form.combustible.data=automotor.combustible
+        form.modelo.data=automotor.modelo
+        form.cilindraje.data=automotor.cilindraje
+        form.color.data=automotor.color
+        form.numero_motor.data=automotor.numero_motor
+        form.numero_serie.data=automotor.numero_serie
+        form.numero_chasis.data=automotor.numero_chasis
+        form.tipo_caja.data=automotor.tipo_caja
+        form.capacidad.data=automotor.capacidad
+
     if form.validate_on_submit():
         hvautomotor = HojaAutomotor(
             descripcion=form.descripcion.data,
@@ -134,12 +161,7 @@ def crear_HVA():
                     hvautomotor.filename_foto1=filename
                     
                     foto1.save(os.path.join('/home/camilo/projects/alcaldia/obraspublicas/app/static', filename))
-                    filename, file_extension = os.path.splitext(filename)
-                    filenamehash = str(datetime.now())+filename
-                    filenamehash = md5(filenamehash.encode('utf-8')).hexdigest()+file_extension
-                    foto1.save(os.path.join(UPLOAD_FOLDER, filenamehash))
-                    print(filenamehash)
-                    hvautomotor.path_foto1=os.path.join(UPLOAD_FOLDER, filenamehash)
+                    hvautomotor.path_foto1=os.path.join('/home/camilo/projects/alcaldia/obraspublicas/app/static', filename)
 
         #Valido Formulario Foto 2
         if form.foto2.data:
@@ -175,6 +197,41 @@ def crear_HVA():
 @login_required
 
 def visualizar_HVA():
-    hvautomotor = HojaAutomotor.query.order_by(HojaAutomotor.fecha_ultima_actualizacion.desc())
+    print(current_user)
+    hvautomotor = HojaAutomotor.query.order_by(HojaAutomotor.placa.asc())
     return render_template('Hautomotor/visualizar.html',hvautomotor=hvautomotor,image_name=image_names)
-    pass
+
+
+@bp.route('/detalles/<value>', methods=['GET', 'POST'])
+@login_required
+
+def detalles_HVA(value):
+
+    hvautomotor=HojaAutomotor.query.get(value)
+    
+    context = {
+        'hvautomotor':hvautomotor,
+
+    }
+
+    if request.method == 'POST':
+        archivo=request.form.get('archivo')
+        print(archivo)
+
+        if archivo=="TarjetaPropiedad":
+            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tarjeta_propiedad.split('/')[7],as_attachment=True)
+
+        elif archivo=="Soat":
+            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_soat.split('/')[7],as_attachment=True)
+
+        elif archivo=="TecnoMecanica":
+            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tecno.split('/')[7],as_attachment=True)
+
+        elif archivo=="Foto1":
+            return send_from_directory('/home/camilo/projects/alcaldia/obraspublicas/app/static',hvautomotor.filename_foto1,as_attachment=True)
+
+        elif archivo=="Foto2":
+            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_foto2.split('/')[7],as_attachment=True)
+
+
+    return render_template('Hautomotor/detalles.html',**context)

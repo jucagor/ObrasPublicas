@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+<div class="card-header">
+    <h1>{{hvautomotor.placa}}</h1>
+</div>
+<div class="card-body">
+    {{hvautomotor.descripcion}}
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Detalles Hoja de vida {{hvautomotor.placa}}</h6>
+    </div>
+
+    <div class="card">
+        <form action="{{ url_for('Hautomotor.crear_HVA') }}" method="get">
+            <button  class="btn btn-primary btn-lg btn btn-warning" id="detalles" type="submit" name="id" value="{{hvautomotor.id}}">Modificar</button>
+        </form>    
+    </div>
+<p></p>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Fecha Creacion</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Tarjeta de Propiedad</th>
+                        <th>Fecha Expedicion TP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{hvautomotor.fecha_creacion.date()}}</td>
+                        <td>{{hvautomotor.modelo}}</td>
+                        <td>{{hvautomotor.marca}}</td>
+                        <td>{{hvautomotor.tarjeta_propiedad}}</td>
+                        <td>{{hvautomotor.fecha_expedicion.date()}}</td>
+                    </tr>
+                <thead>
+                    <tr>
+                        <th>Avaluo</th>
+                        <th>Seccion</th>
+                        <th>Clase de vehiculo</th>
+                        <th>Indentificacion interna</th>
+                        <th>Propietario</th>                       
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{{hvautomotor.avaluo}}</td>
+                        <td>{{hvautomotor.seccion}}</td>
+                        <td>{{hvautomotor.clase_vehiculo}}</td>
+                        <td>{{hvautomotor.identificacion_interna}}</td>
+                        <td>{{hvautomotor.propietario}}</td>                      
+                    </tr>
+                <thead>
+                    <tr>
+                        <th>Combustible</th>
+                        <th>Cilindraje</th>
+                        <th>Color</th>
+                        <th>Tipo de Caja</th>
+                        <th>Capacidad</th>                        
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{{hvautomotor.combustible}}</td>
+                        <td>{{hvautomotor.cilindraje}}</td>
+                        <td>{{hvautomotor.color}}</td>
+                        <td>{{hvautomotor.tipo_caja}}</td>
+                        <td>{{hvautomotor.capacidad}}</td>                      
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Numero Motor</th>
+                        <th>Numero Serie</th>
+                        <th>Numero Chasis</th>                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{hvautomotor.numero_motor}}</td>
+                        <td>{{hvautomotor.numero_serie}}</td>
+                        <td>{{hvautomotor.numero_chasis}}</td>                  
+                    </tr>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <img width="400px" src="{{ url_for('static', filename=hvautomotor.filename_foto1)  }}" />
+            </div>
+            <div>
+                <p></p>
+                <form action="{{ url_for('Hautomotor.detalles_HVA', value=hvautomotor.id) }}" method="post">
+                    <button class="btn btn-primary " id="detalles" type="submit" name="archivo" value="TarjetaPropiedad">Descargar Tarjeta de Propiedad</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('Hautomotor.detalles_HVA', value=hvautomotor.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="Soat">Descargar Soat</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('Hautomotor.detalles_HVA', value=hvautomotor.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="TecnoMecanica">Descargar TecnoMecanica</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('Hautomotor.detalles_HVA', value=hvautomotor.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="Foto1">Descargar Foto Frontal</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('Hautomotor.detalles_HVA', value=hvautomotor.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="Foto2">Descargar Foto Lateral</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
