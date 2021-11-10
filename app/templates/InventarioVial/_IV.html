@@ -1,0 +1,27 @@
+<table class="table table-hover">
+    <tr>
+        <td>
+            <span class="user_popup">
+                <a href="">
+                    <h1>
+                    <span id="{{ IV.estado }}">
+                        <a href="{{ url_for('InventarioVial.detalles_IV', value=IV.id) }}">
+                             {{ IV.codigo }}
+                        </a>
+                    </span>
+                </h1>
+                </a>
+            </span>
+            <br>
+            <b>Fecha ultima actualizacion :</b> {{ IV.fecha_actualizacion.date() }}
+            <br><br>
+            <span id="">
+               <b>Nombre de la via </b> {{ IV.nombre }}
+            </span>
+            <br><br>
+            <span id="">
+               <b>Sector </b> {{ IV.sector }}
+            </span>
+        </td>
+    </tr>
+</table>

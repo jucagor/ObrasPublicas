@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+<div class="card-header">
+    <h1>{{inventario.codigo}}</h1>
+</div>
+<div class="card-body">
+    {{inventario.descripcion}}
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Detalles Inventario Vial via Codigo {{inventario.codigo}}</h6>
+    </div>
+
+    <div class="card">
+        <form action="{{ url_for('InventarioVial.crear_IV') }}" method="get">
+            <button  class="btn btn-primary btn-lg btn btn-warning" id="detalles" type="submit" name="id" value="{{inventario.id}}">Modificar</button>
+        </form>    
+    </div>
+<p></p>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Fecha Creacion</th>
+                        <th>Fecha Ultima Actualizacion</th>
+                        <th>Nombre de la via</th>
+                        <th>Visitador</th>
+                        <th>Sector</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{inventario.fecha_creacion.date()}}</td>
+                        <td>{{inventario.fecha_actualizacion.date()}}</td>
+                        <td>{{inventario.nombre}}</td>
+                        <td>{{inventario.visitador}}</td>
+                        <td>{{inventario.sector}}</td>
+                    </tr>
+                <thead>
+                    <tr>
+                        <th>Coordenadas Iniciales</th>
+                        <th>Coordenadas Finales</th>
+                        <th>Tipo de calzada</th>
+                        <th>Pendiente Promedio</th>
+                        <th>Ancho Promedio</th>                       
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{{inventario.coordenadas_inicio}}</td>
+                        <td>{{inventario.coordenadas_final}}</td>
+                        <td>{{inventario.tipo_de_calzada}}</td>
+                        <td>{{inventario.pendiente_promedio}}</td>
+                        <td>{{inventario.ancho_promedio}}</td>                      
+                    </tr>
+                <thead>
+                    <tr>
+                        <th>Conecta al inicio con</th>
+                        <th>Conecta al Final con</th>
+                        <th>Via afectada por invierno</th>
+                        <th>Via requiere mantenimiento</th>
+                        <th>Estado General</th>                        
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{{inventario.conexion_inicio}}</td>
+                        <td>{{inventario.conexion_final}}</td>
+                        <td>
+                            No
+                        </td>
+                        <td>{{inventario.requiere_mantenimiento}}</td>
+                        <td>{{inventario.estado_general}}</td>                      
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <div>
+                <p></p>
+                <form action="" method="">
+                    <button class="btn btn-primary " id="detalles" type="submit" name="archivo" value="TarjetaPropiedad">Descargar Formato Inventario</button>
+                </form>
+                <p></p>
+                <form action="" method="">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="Soat">Descargar Archivo SIG</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header">
+        <h2>Registro de Actividades</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </table>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

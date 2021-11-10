@@ -28,7 +28,6 @@ def crear_HVA():
     form = CrearHVAForm()
     id_automotor = request.args.get('id',None)
     print(id_automotor)
-    print(id_automotor is None)
     if id_automotor is not None:
         #Consulto el vehiculo en la base de datos
         automotor=HojaAutomotor.query.filter_by(id=id_automotor).first()
@@ -197,6 +196,7 @@ def crear_HVA():
 @login_required
 
 def visualizar_HVA():
+    print('########################   USUARIO: ##################')
     print(current_user)
     hvautomotor = HojaAutomotor.query.order_by(HojaAutomotor.placa.asc())
     return render_template('Hautomotor/visualizar.html',hvautomotor=hvautomotor,image_name=image_names)

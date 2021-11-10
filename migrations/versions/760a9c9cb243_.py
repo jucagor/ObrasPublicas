@@ -1,8 +1,8 @@
-"""first commit
+"""empty message
 
-Revision ID: bbf6bf359982
+Revision ID: 760a9c9cb243
 Revises: 
-Create Date: 2021-10-16 21:15:58.340408
+Create Date: 2021-11-10 00:05:36.185437
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bbf6bf359982'
+revision = '760a9c9cb243'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -85,23 +85,32 @@ def upgrade():
     )
     op.create_table('inventario_vial',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('fecha', sa.DateTime(), nullable=True),
+    sa.Column('fecha_creacion', sa.DateTime(), nullable=True),
+    sa.Column('fecha_actualizacion', sa.DateTime(), nullable=True),
     sa.Column('nombre', sa.String(length=240), nullable=True),
     sa.Column('descripcion', sa.String(length=240), nullable=True),
     sa.Column('codigo', sa.Integer(), nullable=True),
-    sa.Column('ancho_promedio', sa.Integer(), nullable=True),
-    sa.Column('longitud', sa.Integer(), nullable=True),
+    sa.Column('ancho_promedio', sa.String(length=30), nullable=True),
+    sa.Column('longitud', sa.String(length=30), nullable=True),
     sa.Column('visitador', sa.String(length=30), nullable=True),
-    sa.Column('coordenadas_inicio', sa.Integer(), nullable=True),
-    sa.Column('coordenadas_final', sa.Integer(), nullable=True),
+    sa.Column('coordenadas_inicio', sa.String(length=30), nullable=True),
+    sa.Column('coordenadas_final', sa.String(length=30), nullable=True),
     sa.Column('sector', sa.String(length=30), nullable=True),
+    sa.Column('pendiente_promedio', sa.String(length=30), nullable=True),
     sa.Column('tipo_de_calzada', sa.String(length=30), nullable=True),
     sa.Column('conexion_inicio', sa.String(length=30), nullable=True),
     sa.Column('conexion_final', sa.String(length=30), nullable=True),
+    sa.Column('requiere_mantenimiento', sa.String(length=20), nullable=True),
+    sa.Column('estado_general', sa.String(length=30), nullable=True),
+    sa.Column('path_formato', sa.String(length=30), nullable=True),
+    sa.Column('filename_formato', sa.String(length=30), nullable=True),
+    sa.Column('path_sig', sa.String(length=30), nullable=True),
+    sa.Column('filename_sig', sa.String(length=30), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
-    op.create_index(op.f('ix_inventario_vial_fecha'), 'inventario_vial', ['fecha'], unique=False)
+    op.create_index(op.f('ix_inventario_vial_fecha_actualizacion'), 'inventario_vial', ['fecha_actualizacion'], unique=False)
+    op.create_index(op.f('ix_inventario_vial_fecha_creacion'), 'inventario_vial', ['fecha_creacion'], unique=False)
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=64), nullable=True),
@@ -145,7 +154,8 @@ def downgrade():
     op.drop_index(op.f('ix_user_username'), table_name='user')
     op.drop_index(op.f('ix_user_email'), table_name='user')
     op.drop_table('user')
-    op.drop_index(op.f('ix_inventario_vial_fecha'), table_name='inventario_vial')
+    op.drop_index(op.f('ix_inventario_vial_fecha_creacion'), table_name='inventario_vial')
+    op.drop_index(op.f('ix_inventario_vial_fecha_actualizacion'), table_name='inventario_vial')
     op.drop_table('inventario_vial')
     op.drop_table('hojaobra')
     op.drop_index(op.f('ix_hoja_automotor_fecha_creacion'), table_name='hoja_automotor')

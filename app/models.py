@@ -149,20 +149,32 @@ class PQR(db.Model):
 
 class inventarioVial(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    fecha = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    fecha_creacion = db.Column(db.DateTime, index=True)
+    fecha_actualizacion = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     nombre = db.Column(db.String(240)) 
     descripcion = db.Column(db.String(240)) 
     codigo = db.Column(db.Integer)
-    ancho_promedio = db.Column(db.Integer)
-    longitud = db.Column(db.Integer)
+    ancho_promedio = db.Column(db.String(30))
+    longitud = db.Column(db.String(30))
     visitador = db.Column(db.String(30))
-    coordenadas_inicio = db.Column(db.Integer)
-    coordenadas_final = db.Column(db.Integer)
+    coordenadas_inicio = db.Column(db.String(30))
+    coordenadas_final = db.Column(db.String(30))
     sector = db.Column(db.String(30))
-    pendiente_promedio = db.String
+    pendiente_promedio = db.Column(db.String(30))
     tipo_de_calzada = db.Column(db.String(30))
     conexion_inicio = db.Column(db.String(30))
     conexion_final = db.Column(db.String(30))
+    afectada_invierno = db.column(db.String(30))
+    requiere_mantenimiento = db.Column(db.String(30))
+    estado_general = db.Column(db.String(30))
+
+    #   Archivos adjuntos
+
+    path_formato = db.Column(db.String(30))
+    filename_formato = db.Column(db.String(30))
+    path_sig = db.Column(db.String(30))
+    filename_sig = db.Column(db.String(30))
+
 
 class HojaAutomotor(db.Model):
 

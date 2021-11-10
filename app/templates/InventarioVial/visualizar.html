@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<h1>Visualizar Todos los Registros Inventario Vial</h1>
+
+{% for IV in inventario %}
+{% include 'InventarioVial/_IV.html' %}
+{% endfor %}
+
+{% endblock %}
