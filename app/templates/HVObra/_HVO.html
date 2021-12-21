@@ -1,8 +1,8 @@
 <table class="table table-hover">
     <tr>
         <td width="70px">
-            <a href="">
-                <h2> {{ HVO.descripcion }} </h2> 
+            <a href="{{ url_for('HVObra.detalles_HVO', value=HVO.id) }}">
+                <h2> {{ HVO.nombre }} </h2> 
             </a>
         </td>
         <td>
@@ -15,7 +15,7 @@
             <span id="{{ HVO.estado }}">{{ HVO.estado }}</span>
             <br><br>
             <span id="">
-               <b>Direccion de la obra: </b> {{ HVO.direccion }}
+               <b>Descripcion de la obra: </b> {{ HVO.descripcion }}
             </span>
         </td>
     </tr>

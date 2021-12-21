@@ -100,6 +100,7 @@ def load_user(id):
 class Hojaobra(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nombre = db.Column(db.String(40)) 
     descripcion = db.Column(db.String(240)) 
     fecha_ultima_actualizacion = db.Column(db.DateTime, default=datetime.utcnow)
     localizacion = db.Column(db.String(30))
@@ -110,22 +111,40 @@ class Hojaobra(db.Model):
     fecha_socializacion = db.Column(db.DateTime)
     fecha_inicio = db.Column(db.DateTime)
     fecha_terminacion = db.Column(db.DateTime)
+
+    usuario = db.Column(db.String(30))
+
     #   Archivos adjuntos
     path_cuadro_base_datos = db.Column(db.String(30))
+    filename_cuadro_base_datos = db.Column(db.String(30))
     path_programa_visitas = db.Column(db.String(30))
+    filename_programa_visitas = db.Column(db.String(30))
     path_visita_tecnica = db.Column(db.String(30))
+    filename_visita_tecnica = db.Column(db.String(30))
     path_acta_comite_tecnico = db.Column(db.String(30))
+    filename_acta_comite_tecnico = db.Column(db.String(30))
     path_certificado_banco_proyectos = db.Column(db.String(30))
+    filename_certificado_banco_proyectos = db.Column(db.String(30))
     path_presupuesto = db.Column(db.String(30))
+    filename_presupuesto = db.Column(db.String(30))
     path_estudios_previos = db.Column(db.String(30))
+    filename_estudios_previos = db.Column(db.String(30))
     path_estado_redes = db.Column(db.String(30))
+    filename_estado_redes = db.Column(db.String(30))
     path_planos = db.Column(db.String(30))
+    filename_planos = db.Column(db.String(30))
     path_ensayo_laboratorio = db.Column(db.String(30))
+    filename_ensayo_laboratorio = db.Column(db.String(30))
     path_plan_manejo_ambiental = db.Column(db.String(30))
+    filename_plan_manejo_ambiental = db.Column(db.String(30))
     path_registro_fotografico = db.Column(db.String(30))
+    filename_registro_fotografico = db.Column(db.String(30))
     path_informe_diario = db.Column(db.String(30))
+    filename_informe_diario = db.Column(db.String(30))
     path_acta_de_entrega = db.Column(db.String(30))
+    filename_acta_de_entrega = db.Column(db.String(30))
     path_consolidacion_documentos = db.Column(db.String(30))
+    filename_consolidacion_documentos = db.Column(db.String(30))
 
     # PQRS asociadas
 
@@ -141,6 +160,9 @@ class PQR(db.Model):
     peticionario = db.Column(db.String(30))
     fecha_respuesta = db.Column(db.DateTime, index=True)
     path_respuesta = db.Column(db.String(30))
+
+    usuario = db.Column(db.String(30))
+
     filename_respuesta = db.Column(db.String(140))
     # Hoja_vida = db.Column(db.Integer, db.ForeignKey('Hojaobra.id'))
 
@@ -167,6 +189,8 @@ class inventarioVial(db.Model):
     afectada_invierno = db.column(db.String(30))
     requiere_mantenimiento = db.Column(db.String(30))
     estado_general = db.Column(db.String(30))
+
+    usuario = db.Column(db.String(30))
 
     #   Archivos adjuntos
 
@@ -201,7 +225,9 @@ class HojaAutomotor(db.Model):
     tipo_caja = db.Column(db.String(40))
     capacidad = db.Column(db.String(40))
 
-    #   Archivos adjuntos
+    usuario = db.Column(db.String(30))
+
+    #Archivos adjuntos
 
     path_tarjeta_propiedad = db.Column(db.String(30))
     filename_tarjeta_propiedad = db.Column(db.String(30))

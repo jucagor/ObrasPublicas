@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+<div class="card-header">
+    <h1>{{hv.nombre}}</h1>
+</div>
+<div class="card-body">
+    {{hv.descripcion}}
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Detalles Hoja de vida</h6>
+    </div>
+
+    <div class="card">
+        <form action="{{ url_for('HVObra.crear_HVO') }}" method="get">
+            <button  class="btn btn-primary btn-lg btn btn-warning" id="detalles" type="submit" name="id" value="{{hv.id}}">Modificar</button>
+        </form>    
+    </div>
+<p></p>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Fecha Ultima Actualizacion</th>
+                        <th>Localizacion</th>
+                        <th>Direccion</th>
+                        <th>Radicado de solicitud</th>
+                        <th>Ingeniero a Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{hv.fecha_ultima_actualizacion.date()}}</td>
+                        <td>{{hv.localizacion}}</td>
+                        <td>{{hv.direccion}}</td>
+                        <td>{{hv.radicado_solicitud}}</td>
+                        <td>{{hv.ingeniero_a_cargo}}</td>
+                    </tr>
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Fecha de socializacion</th>
+                        <th>Fecha de inicio de la obra</th>
+                        <th>Fecha de Terminacion</th>                     
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>{{hv.estado}}</td>
+                        <td>{{hv.fecha_socializacion}}</td>
+                        <td>{{hv.fecha_inicio}}</td>
+                        <td>{{hv.fecha_terminacion}}</td>                  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <div>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary " id="detalles" type="submit" name="archivo" value="cuadro_base_datos">Descargar Cuadro Base de datos</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="programa_visitas">Descargar Programa de Visitas</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="visita_tecnica">Descargar Visita Tecnica</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="acta_comite_tecnico">Descargar Comite Tecnico</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="certificado_banco_proyectos">Descargar Certificado Banco de proyectos</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="presupuesto">Descargar presupuesto</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="estudios_previos">Descargar estudios previos</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="estado_redes">Descargar Estado de Redes</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="planos">Descargar Planos</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="ensayo_laboratorio">Descargar ensayo_laboratorio</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="plan_manejo_ambiental">Descargar plan de manejo ambiental</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="registro_fotografico">Descargar Registro Fotografico</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="informe_diario">DescargarInformes diarios</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="acta_de_entrega">Descargar Acta de entrega</button>
+                </form>
+                <p></p>
+                <form action="{{ url_for('HVObra.detalles_HVO', value=hv.id) }}" method="post">
+                    <button class="btn btn-primary" id="detalles" type="submit" name="archivo" value="consolidacion_documentos">Descargar Consolidacion de documentos</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Registro de Mantenimientos</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </table>
+        </div>
+    </div>
+
+
+    </div>
+
+{% endblock %}

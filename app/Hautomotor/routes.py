@@ -27,7 +27,6 @@ def allowed_file(filename):
 def crear_HVA():
     form = CrearHVAForm()
     id_automotor = request.args.get('id',None)
-    print(id_automotor)
     if id_automotor is not None:
         #Consulto el vehiculo en la base de datos
         automotor=HojaAutomotor.query.filter_by(id=id_automotor).first()
@@ -196,8 +195,6 @@ def crear_HVA():
 @login_required
 
 def visualizar_HVA():
-    print('########################   USUARIO: ##################')
-    print(current_user)
     hvautomotor = HojaAutomotor.query.order_by(HojaAutomotor.placa.asc())
     return render_template('Hautomotor/visualizar.html',hvautomotor=hvautomotor,image_name=image_names)
 
@@ -219,19 +216,31 @@ def detalles_HVA(value):
         print(archivo)
 
         if archivo=="TarjetaPropiedad":
-            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tarjeta_propiedad.split('/')[7],as_attachment=True)
+            if hvautomotor.path_tarjeta_propiedad!=None:
+                return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tarjeta_propiedad.split('/')[7],as_attachment=True)
+            else:
+                flash("No existe este documento!!")
 
         elif archivo=="Soat":
-            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_soat.split('/')[7],as_attachment=True)
+            if hvautomotor.path_soat!=None:
+                return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_soat.split('/')[7],as_attachment=True)
+            else:
+                flash("No existe este documento!!")
 
         elif archivo=="TecnoMecanica":
-            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tecno.split('/')[7],as_attachment=True)
+            if hvautomotor.path_tecno!=None:
+                return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_tecno.split('/')[7],as_attachment=True)
+            else:
+                flash("No existe este documento!!")
 
         elif archivo=="Foto1":
             return send_from_directory('/home/camilo/projects/alcaldia/obraspublicas/app/static',hvautomotor.filename_foto1,as_attachment=True)
 
         elif archivo=="Foto2":
-            return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_foto2.split('/')[7],as_attachment=True)
+            if hvautomotor.path_foto2!=None:
+                return send_from_directory(UPLOAD_FOLDER,hvautomotor.path_foto2.split('/')[7],as_attachment=True)
+            else:
+                flash("No existe este documento!!")
 
 
     return render_template('Hautomotor/detalles.html',**context)

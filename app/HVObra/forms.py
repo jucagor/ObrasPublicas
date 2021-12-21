@@ -17,8 +17,8 @@ class CrearHVOForm(FlaskForm):
     localizacion = StringField('Localizacion')
     estado = StringField('Estado de la obra')
     fecha_inicio = DateField('Fecha de inicio de la obra',format='%d/%m/%Y', default=date.today)
-    terminacion = DateField('Fecha de terminacion de la obra')
-    fecha_recibido = DateField('Fecha de recibido', format='%d/%m/%Y', default=date.today)
+    terminacion = DateField('Fecha de terminacion de la obra', format='%d/%m/%Y')
+    fecha_socializacion = DateField('Fecha de socializacion', format='%d/%m/%Y', default=date.today)
 
     file_base_datos = FileField('Cuadro base de Datos', validators=[Optional()])
     programa_visitas = FileField('Porgrama de visitas', validators=[Optional()])
@@ -33,9 +33,8 @@ class CrearHVOForm(FlaskForm):
     plan_ambiental = FileField('Plan de manejo ambiental', validators=[Optional()])
     registro_fotografico = FileField('Registro fotografico', validators=[Optional()])
     formato_informe_diario = FileField('Formato de registro de informe diario', validators=[Optional()])
-    acta_entre = FileField('Acta de entrega de la Obra', validators=[Optional()])
+    acta_entrega = FileField('Acta de entrega de la Obra', validators=[Optional()])
     consolidacion_documentos = FileField('Consolidacion documentos hoja de vida', validators=[Optional()])
-    respuesta = FileField('Respuesta', validators=[Optional()])
     submit = SubmitField('Guardar')
 
     
