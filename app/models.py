@@ -18,30 +18,6 @@ from app import db, login
 # db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
 
 
-# class PaginatedAPIMixin(object):
-#     @staticmethod
-#     def to_collection_dict(query, page, per_page, endpoint, **kwargs):
-#         resources = query.paginate(page, per_page, False)
-#         data = {
-#             'items': [item.to_dict() for item in resources.items],
-#             '_meta': {
-#                 'page': page,
-#                 'per_page': per_page,
-#                 'total_pages': resources.pages,
-#                 'total_items': resources.total
-#             },
-#             '_links': {
-#                 'self': url_for(endpoint, page=page, per_page=per_page,
-#                                 **kwargs),
-#                 'next': url_for(endpoint, page=page + 1, per_page=per_page,
-#                                 **kwargs) if resources.has_next else None,
-#                 'prev': url_for(endpoint, page=page - 1, per_page=per_page,
-#                                 **kwargs) if resources.has_prev else None
-#             }
-#         }
-#         return data
-
-
 followers = db.Table(
     'followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -57,23 +33,7 @@ class User(UserMixin, db.Model):
     #posts = db.relationship('Post', backref='author', lazy='dynamic')
     #about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-    #token = db.Column(db.String(32), index=True, unique=True)
-    # #token_expiration = db.Column(db.DateTime)
-    # followed = db.relationship(
-    #     'User', secondary=followers,
-    #     primaryjoin=(followers.c.follower_id == id),
-    #     secondaryjoin=(followers.c.followed_id == id),
-    #     backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
-    # messages_sent = db.relationship('Message',
-    #                                 foreign_keys='Message.sender_id',
-    #                                 backref='author', lazy='dynamic')
-    # messages_received = db.relationship('Message',
-    #                                     foreign_keys='Message.recipient_id',
-    #                                     backref='recipient', lazy='dynamic')
-    # last_message_read_time = db.Column(db.DateTime)
-    # notifications = db.relationship('Notification', backref='user',
-    #                                 lazy='dynamic')
-    # tasks = db.relationship('Task', backref='user', lazy='dynamic')
+
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -84,10 +44,6 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    # def avatar(self, size):
-    #     digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-    #     return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
-    #         digest, size)
 
   
 
@@ -110,7 +66,7 @@ class Hojaobra(db.Model):
     estado = db.Column(db.String(30))
     fecha_socializacion = db.Column(db.DateTime)
     fecha_inicio = db.Column(db.DateTime)
-    fecha_terminacion = db.Column(db.DateTime)
+    fecha_terminacion = db.Column(db.String(40))
 
     usuario = db.Column(db.String(30))
 
@@ -239,44 +195,3 @@ class HojaAutomotor(db.Model):
     filename_foto1 = db.Column(db.String(30))
     path_foto2 = db.Column(db.String(30))
     filename_foto2 = db.Column(db.String(30))
-
-
-# class Message(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     body = db.Column(db.String(140))
-#     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
-#     def __repr__(self):
-#         return '<Message {}>'.format(self.body)
-
-
-# class Notification(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(128), index=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     timestamp = db.Column(db.Float, index=True, default=time)
-#     payload_json = db.Column(db.Text)
-
-#     def get_data(self):
-#         return json.loads(str(self.payload_json))
-
-
-# class Task(db.Model):
-#     id = db.Column(db.String(36), primary_key=True)
-#     name = db.Column(db.String(128), index=True)
-#     description = db.Column(db.String(128))
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     complete = db.Column(db.Boolean, default=False)
-
-#     def get_rq_job(self):
-#         try:
-#             rq_job = rq.job.Job.fetch(self.id, connection=current_app.redis)
-#         except (redis.exceptions.RedisError, rq.exceptions.NoSuchJobError):
-#             return None
-#         return rq_job
-
-#     def get_progress(self):
-#         job = self.get_rq_job()
-#         return job.meta.get('progress', 0) if job is not None else 100
